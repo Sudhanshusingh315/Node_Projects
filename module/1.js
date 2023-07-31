@@ -6,4 +6,3 @@ require('./4.js');
 sayHi(Name.jhon);
 sayHi(Name.rohan);
 
-

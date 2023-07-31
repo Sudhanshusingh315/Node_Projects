@@ -1,4 +1,4 @@
-const secret =  "SUPER SECRET";
+const secret =  "ctrl SECRET";
 const jhon = "jhon";
 const rohan = "rohan";
 

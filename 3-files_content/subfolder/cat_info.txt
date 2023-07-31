@@ -1,0 +1,3 @@
+Hello this was created with node and i''m putting first file and second file as result My fav cat breeds are: {British shorthair
+,Ragdolls}
+,and they like to have Milk and PurePat
