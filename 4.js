@@ -1,7 +1,6 @@
 // File with Async creation
 
 const {readFile, writeFile} = require('fs');
-const { setMaxIdleHTTPParsers } = require('http');
 
 
 
