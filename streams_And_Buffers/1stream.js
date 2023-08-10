@@ -13,18 +13,25 @@ const server = http.createServer((req,res)=>{
 
 
     // Donwloading big fiels bad way
-
-     const file = fs.readFileSync('./streams_And_Buffers/m3ww_thumb_fadeout.mp4');
+    
+   /* const file = fs.readFileSync('sample.txt');
     
     
-     return res.end(file)
-
-    
-    console.log('request coming', req.url)
-})
+    return res.end(file); */
 
 
-const PORT = process.env.PORT || 5700;
+    // Downlaoding big files using good way(Streams)
+
+    const readbleStream = fs.createReadStream('karekare.mp4');
+
+    // readableStream ----> writeableStream 
+    res.writeHead(200,{'Content-Type':'video/mp4'});
+    readbleStream.pipe(res);
+
+});
+
+
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`);
