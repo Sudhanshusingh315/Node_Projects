@@ -11,7 +11,7 @@ const server = http.createServer((req,res)=>{
         return res.end();
     }
 
-
+ 
     // Donwloading big fiels bad way
     
    /* const file = fs.readFileSync('sample.txt');
