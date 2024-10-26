@@ -1,5 +1,5 @@
 const {check} = require('express-validator');
-
+console.log("inside req validtion file")
 exports.registerValidtor =[ 
 
     check('name','Name is required').not().isEmpty().isString(),
@@ -13,11 +13,8 @@ exports.registerValidtor =[
         max:10
     }),
     
-    check('password','Password must be greater than 6 character and contain at least one Uppercase letter, atleast one lowercase letter, and one number and one special character')
-    .isStrongPassword({
-        minLength:6,
-        minLowercase:1,
-        minUppercase:1,
-        minNumbers:1,
+    check('password','Password must be longer than 6 character')
+    .isLength({
+        min:6,
     })
 ]

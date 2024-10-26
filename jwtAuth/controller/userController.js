@@ -1,6 +1,8 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const {validationResult} = require('express-validator')
+const {constant} = require('../constants/constans')
+const mail = require('../helpers/mailer')
 // Methods
 const userRegister = async(req,res) =>{
     try{
@@ -16,7 +18,7 @@ const userRegister = async(req,res) =>{
         }
 
         const {name, email, mobile, password} = req.body;
-        console.log(typeof mobile);
+
         let user = null; 
 
         user = await User.findOne({email});
@@ -31,6 +33,10 @@ const userRegister = async(req,res) =>{
             })
 
             const newUser = await user.save();
+
+            const msg = `<p>Hello, ${name}, Please <a href=${process.env.NODE_ENV==='production' ? constant.production_url : constant.dev_url}>Verify</a></p>`
+            // send mail for verfication
+            await mail.sendMail(email,'Verify Email',msg);
 
             return res.status(201).json({
                 success:true, 

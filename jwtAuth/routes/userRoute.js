@@ -13,6 +13,6 @@ router.get('/test',(req,res)=>{
 })
 
 
-router.post('/register',registerValidtor ,userCOntroller.userRegister);
+router.post('/register', registerValidtor ,userCOntroller.userRegister);
 
 module.exports = router;
