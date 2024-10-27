@@ -1,34 +1,31 @@
-const nodemailer  = require('nodemailer');
-const {nodemailerConfig}  = require('../constants/constans');
+const nodemailer = require('nodemailer');
+
 const transporter = nodemailer.createTransport({
-    host:nodemailerConfig.host,
-    port:parseInt(nodemailerConfig.port),
+    host:"smtp.gmail.com",
+    port:587,
     secure:false,
-    requireTLS:true,
     auth:{
-        user:nodemailerConfig.user,
-        pass:nodemailerConfig.pass
+        user:"ss826063@gmail.com",
+        pass:"hakb ickl xwen wepa"
     }
 });
 
-const sendMail = async(email,subject,content) =>{
+
+const sendEmail = async(user,subject,message) =>{
     try{
-        let sendMailConfig = {
-            from:nodemailerConfig.user,
-            to:email,
+
+        const info = await transporter.sendMail({
+            from:'ss826063@gmail.com',
+            to:user,
             subject,
-            html:content
-        }
-
-        console.log(`mail configs are ${JSON.stringify(sendMailConfig,undefined,4)}`)
-
-        const info = await transporter.sendMail(sendMailConfig);
-        console.log(`Message sent to ${email} with info ${info.messageId}`);
+            html: message
+        });
+        console.log(info);
     }catch(err){
-        console.log(`Mail failed to send ${err}`);
+        console.log(err);
     }
 }
 
-module.exports ={
-    sendMail
+module.exports = {
+    sendEmail
 }

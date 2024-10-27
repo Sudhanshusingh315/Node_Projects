@@ -33,10 +33,14 @@ const userRegister = async(req,res) =>{
             })
 
             const newUser = await user.save();
-
-            const msg = `<p>Hello, ${name}, Please <a href=${process.env.NODE_ENV==='production' ? constant.production_url : constant.dev_url}>Verify</a></p>`
-            // send mail for verfication
-            await mail.sendMail(email,'Verify Email',msg);
+            
+            let message =` <p>Hello ${name}, Please, 
+                
+                <a href=${process.env.NODE_ENV==='production' ? constant.production_url : constant.dev_url}>Verify yourself</a>
+            
+            </p>`
+            
+            await mail.sendEmail(email,"Email verfication",message)
 
             return res.status(201).json({
                 success:true, 
