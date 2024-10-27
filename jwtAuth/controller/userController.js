@@ -9,6 +9,8 @@ const userRegister = async(req,res) =>{
 
         const error = validationResult(req);
 
+        // checking for validation failed
+
         if(!error.isEmpty()){
             return res.status(400).json({
                 success:false, 
@@ -22,6 +24,9 @@ const userRegister = async(req,res) =>{
         let user = null; 
 
         user = await User.findOne({email});
+
+        // Checking if the user already exits throw error if does
+        // else create new user and send the verification email
 
         if(!user) {
             const hashPassword = await bcrypt.hash(password,10);

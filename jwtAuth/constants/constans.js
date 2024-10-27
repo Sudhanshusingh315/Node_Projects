@@ -8,10 +8,10 @@ const constant = {
 }
 
 const nodemailerConfig = {
-    host:process.env.SMTP_HOST,
-    port:process.env.SMTP_PORT,
-    user:process.env.SMTP_MAIL,
-    pass:process.env.SMTP_PASSWORD
+    host:process.env.NODEMAILER_HOST,
+    port:process.env.NODEMAILER_PORT,
+    user:process.env.NODEMAILER_USER ,
+    pass:process.env.NODEMAILER_PASS 
 }
 
 module.exports = {constant,nodemailerConfig};

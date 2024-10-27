@@ -1,12 +1,12 @@
 const nodemailer = require('nodemailer');
-
+const {nodemailerConfig} = require('../constants/constans')
 const transporter = nodemailer.createTransport({
     host:"smtp.gmail.com",
-    port:587,
+    port:parseInt(nodemailerConfig.port),
     secure:false,
     auth:{
-        user:"ss826063@gmail.com",
-        pass:"hakb ickl xwen wepa"
+        user:nodemailerConfig.user,
+        pass:nodemailerConfig.pass
     }
 });
 
@@ -15,7 +15,7 @@ const sendEmail = async(user,subject,message) =>{
     try{
 
         const info = await transporter.sendMail({
-            from:'ss826063@gmail.com',
+            from:nodemailerConfig.user,
             to:user,
             subject,
             html: message
