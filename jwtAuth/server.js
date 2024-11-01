@@ -10,9 +10,10 @@ const PORT = parseInt(constant.port);
 
 // routes
 const userRoute = require('./routes/userRoute');
+const authRoute = require('./routes/authRoute');
 
 app.use('/api',userRoute);
-
+app.use('/auth',authRoute)
 // connecting mongoose 
 
 main().catch(err => console.log("this error is ",err));

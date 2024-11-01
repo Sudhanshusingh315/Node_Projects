@@ -1,5 +1,4 @@
 const {check} = require('express-validator');
-console.log("inside req validtion file")
 exports.registerValidtor =[ 
 
     check('name','Name is required').not().isEmpty().isString(),
@@ -17,4 +16,12 @@ exports.registerValidtor =[
     .isLength({
         min:6,
     })
+];
+
+exports.loginValidator =[
+    check('email','Email is required').notEmpty().isEmail().normalizeEmail({
+        gmail_remove_dots:true
+    }),
+
+    check('password','Wrong Password',).isString().notEmpty()
 ]

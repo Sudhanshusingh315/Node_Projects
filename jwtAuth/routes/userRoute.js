@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userCOntroller = require('../controller/userController');
+const userController = require('../controller/userController');
 const {registerValidtor} = require('../helpers/validation')
+const {tokenVerifyMiddleware} = require('../middleware/authenticationMiddleware');
 router.use(express.json());
 
 // test
@@ -13,6 +14,12 @@ router.get('/test',(req,res)=>{
 })
 
 
-router.post('/register', registerValidtor ,userCOntroller.userRegister);
+router.post('/register', registerValidtor ,userController.userRegister);
+
+router.get('/mail-verification',userController.userVerification);
+
+router.post('/profile',tokenVerifyMiddleware,userController.userProfile);
+
+
 
 module.exports = router;

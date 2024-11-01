@@ -1,15 +1,13 @@
 const nodemailer  = require('nodemailer');
 const {nodemailerConfig}  = require('../constants/constans');
 const transporter = nodemailer.createTransport({
-    host:nodemailerConfig.host,
-    port:parseInt(nodemailerConfig.port),
-    secure:false,
-    requireTLS:true,
+    service:'gmail',
     auth:{
         user:nodemailerConfig.user,
         pass:nodemailerConfig.pass
     }
 });
+
 
 const sendMail = async(email,subject,content) =>{
     try{
