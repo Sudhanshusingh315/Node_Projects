@@ -1,15 +1,12 @@
-const userExists = (name,email,password) => {
+const userExists = ({name,email,password}) => {
     return [
         {
             $match: {
                 email: `${email}`, 
             },
-        },
+        }
     ];
 };
-
-
-
 
 
 

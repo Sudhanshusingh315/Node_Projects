@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const {commonConstants} = require('./constants/constants');
 const port = parseInt(commonConstants.port);
 const app = express();
+
 const authRouter = require('./routes/authRoute');
+const adminRouter = require('./routes/adminRoute');
 
 
 // body-parser
@@ -19,8 +21,9 @@ async function main() {
 
 
 //Routes
-app.use('/auth',authRouter)
+app.use('/auth',authRouter);
 
+app.use('/admin',adminRouter);
 
 
 app.listen(port, () => {

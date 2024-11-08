@@ -2,6 +2,8 @@ const User = require("../models/userModel");
 const { validationResult } = require("express-validator");
 const aggreagationPipelines = require("../aggregation-pipeline/authControllerPipeline");
 const bcrypt = require("bcrypt");
+const { generateAccessToken } = require("../helpers/token");
+
 const registerUser = async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -16,7 +18,7 @@ const registerUser = async (req, res) => {
         let user = null;
 
         user = await User.aggregate(
-            aggreagationPipelines.userExists(name, email, password)
+            aggreagationPipelines.userExists({ name, email, password })
         );
 
         if (user.length)
@@ -48,6 +50,53 @@ const registerUser = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({
+            success: false,
+            message: "Validation failed",
+            error: error.array(),
+        });
+    }
+
+    const { email, password } = req.body;
+
+    let user = null;
+    try {
+        user = await User.aggregate(
+            aggreagationPipelines.userExists({ email })
+        );
+
+        if (user.length) {
+            let passwordVerified = await bcrypt.compare(
+                password,
+                user[0]?.password
+            );
+            const token = await generateAccessToken({
+                name: user?.name,
+                email: user?.email,
+            });
+            if (user[0]?.email === email && passwordVerified) {
+                return res.status(200).json({
+                    success: true,
+                    message: "Login successfull",
+                    token,
+                });
+            }
+            throw new Error("Wrong email and password");
+        }
+    } catch (err) {
+        console.log("error is ", err);
+        return res.status(400).json({
+            success: false,
+            message: "Something went wrong",
+            error: err.message,
+        });
+    }
+};
+
 module.exports = {
     registerUser,
+    login,
 };
